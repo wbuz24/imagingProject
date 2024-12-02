@@ -79,7 +79,7 @@ function [N, K, elapsedTime, MSE_FISTA, PSNR_FISTA, SSIM] = testFISTA(M)
     
     % Stop timing and display elapsed time
     elapsedTime = toc;
-    disp(['FISTA runtime: ', num2str(elapsedTime), ' seconds']);
+    % disp(['FISTA runtime: ', num2str(elapsedTime), ' seconds']);
     
     % Continue with the rest of the reconstruction
     imgReconReshape = reshape(imgRecon, [M, M]);
@@ -89,13 +89,12 @@ function [N, K, elapsedTime, MSE_FISTA, PSNR_FISTA, SSIM] = testFISTA(M)
     [MSE_FISTA, PSNR_FISTA, SSIM] = errorCalc(originalImg, imgFISTA);
     
     % Display
-    disp(['N: ',num2str(N)]);
-    disp(['K: ', num2str(K)]);
-    disp(['Eta: ', num2str(eta)]);
-    disp(['OMP Mean Squared Error: ', num2str(MSE_FISTA)]);
-    disp(['OMP Peak Signal-to-Noise Ratio: ', num2str(PSNR_FISTA), ' dB']);
-    
-    
+    % disp(['N: ',num2str(N)]);
+    % disp(['K: ', num2str(K)]);
+    % disp(['Eta: ', num2str(eta)]);
+    % disp(['OMP Mean Squared Error: ', num2str(MSE_FISTA)]);
+    % disp(['OMP Peak Signal-to-Noise Ratio: ', num2str(PSNR_FISTA), ' dB'])
+
     %% Display Results
     % fs = 14; % Font Size for MSE and PSNR
     % fc = 'white'; % Font color for MSE and PSNR
