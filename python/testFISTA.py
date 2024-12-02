@@ -3,6 +3,8 @@ import cv2
 import matplotlib.pyplot as plt
 from scipy.fftpack import dct, idct
 import scipy.io
+import time
+import sys
 
 def soft_thresholding(x, threshold):
     return np.sign(x) * np.maximum(np.abs(x) - threshold, 0)
@@ -75,8 +77,13 @@ def error_calc(original, reconstructed):
     ssim_value = cv2.quality.QualitySSIM_compute(reconstructed_uint8, original_uint8)[0][0]
 
     return mse, psnr, ssim_value
+
 # Parameters
-M = 50  # Image size (MxM)
+argc = len(sys.argv)
+if (argc == 2):
+  M = int(sys.argv[1])
+else:
+  M = 50 
 N = M**2  # Total number of pixels
 K = round(N * 0.25)  # Sparsity level
 num_measurements = 4 * round(K * np.log2(N / K))  # Number of measurements
@@ -138,14 +145,24 @@ try:
 except ImportError:
     pass  # Fallback to CPU if GPU is unavailable
 
+start_time = time.time()
 # Perform reconstruction
 reconstructed_dct = fista(A, y, lambda_param, max_iter, tol)
+
+end_time = time.time()
+
 if 'cp' in globals():
     reconstructed_dct = cp.asnumpy(reconstructed_dct)
 
 # Reshape and apply inverse DCT to get reconstructed image
 reconstructed_dct_matrix = reconstructed_dct.reshape((M, M))
 img_fista = idct(idct(reconstructed_dct_matrix.T, norm='ortho').T, norm='ortho')
+
+timediff = end_time - start_time
+
+# Results
+with open("runtime.txt", "a") as f:
+  print(f"M: %d,  N: %d,  K: %d,  FISTA runtime: %.2f seconds" % (M, N, K, timediff), file=f)
 
 # Error Calculation
 mse_fista, psnr_fista,ssim = error_calc(original_img, img_fista)
@@ -176,4 +193,4 @@ axs[2].text(0.02, 0.14, f'SSIM: {ssim:.4f}', color=fc, fontsize=fs, transform=ax
 axs[2].axis('off')
 
 plt.tight_layout()
-plt.show()
+#plt.show()

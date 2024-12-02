@@ -14,5 +14,5 @@ for i in $( seq 15 100 )
 do
   echo "$i"
 
-  python3 python/fista.py $i 
+  python3 python/testFISTA.py $i 
 done
