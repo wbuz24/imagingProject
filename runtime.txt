@@ -1,0 +1,1 @@
+M: 50,  N: 2500,  K: 625,  FISTA runtime: 3.87 seconds
