@@ -90,7 +90,7 @@ num_measurements = 4 * round(K * np.log2(N / K))  # Number of measurements
 eta = 0  # Noise level
 
 # Load and prepare the image using OpenCV
-img = cv2.imread('leaf.jpg', cv2.IMREAD_GRAYSCALE)  # Load as grayscale
+img = cv2.imread('tissuedata.jpg', cv2.IMREAD_GRAYSCALE)  # Load as grayscale
 #img = cv2.resize(img, (M, M))  # Resize to MxM
 img = cv2.resize(img, (M, M), interpolation=cv2.INTER_CUBIC)
 original_img = img.astype(np.float64)
