@@ -1,2 +1,6 @@
 debug.npz
+<<<<<<< Updated upstream
 nohup.out
+=======
+bin/*
+>>>>>>> Stashed changes
