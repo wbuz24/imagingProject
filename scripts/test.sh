@@ -6,6 +6,8 @@ file=runtime.txt
 if [ -e runtime.txt ]
 then 
   rm runtime.txt
+  touch runtime.txt
+  echo "M: , N: , K: , FISTA runtime (seconds): , MSE: , PSNR: , SSIM:  " >> runtime.txt
 else 
   echo "$file does not exist"
 fi

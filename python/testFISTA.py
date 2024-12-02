@@ -160,37 +160,37 @@ img_fista = idct(idct(reconstructed_dct_matrix.T, norm='ortho').T, norm='ortho')
 
 timediff = end_time - start_time
 
-# Results
-with open("runtime.txt", "a") as f:
-  print(f"M: %d,  N: %d,  K: %d,  FISTA runtime: %.2f seconds" % (M, N, K, timediff), file=f)
-
 # Error Calculation
 mse_fista, psnr_fista,ssim = error_calc(original_img, img_fista)
+
+# Results
+with open("runtime.txt", "a") as f:
+  print(f"%d, %d, %d,  %.2f , %.5f, %.5f, %.5f" % (M, N, K, timediff, mse_fista, psnr_fista, ssim), file=f)
 
 # Display results
 fs = 14  # Font size
 fc = 'white'  # Font color
 
-fig, axs = plt.subplots(1, 3, figsize=(15, 5))
-fig.suptitle(f'Image Size: {M}x{M}, Sparsity Number: {K}, Ratio K/N: {K/N:.2f}, Noise Level: {eta}')
+#fig, axs = plt.subplots(1, 3, figsize=(15, 5))
+#fig.suptitle(f'Image Size: {M}x{M}, Sparsity Number: {K}, Ratio K/N: {K/N:.2f}, Noise Level: {eta}')
 
 # Original Image
-axs[0].imshow(original_img, cmap='gray')
-axs[0].set_title('Original Image')
-axs[0].axis('off')
+#axs[0].imshow(original_img, cmap='gray')
+#axs[0].set_title('Original Image')
+#axs[0].axis('off')
 
 # Sparse Image
-axs[1].imshow(img_sparse_limited, cmap='gray')
-axs[1].set_title('Sparse Image Pre-Reconstruction')
-axs[1].axis('off')
-
-# FISTA Reconstructed Image
-axs[2].imshow(img_fista, cmap='gray')
-axs[2].set_title('Reconstructed Image using FISTA')
-axs[2].text(0.02, 0.02, f'MSE: {mse_fista:.4f}', color=fc, fontsize=fs, transform=axs[2].transAxes)
-axs[2].text(0.02, 0.08, f'PSNR: {psnr_fista:.2f} dB', color=fc, fontsize=fs, transform=axs[2].transAxes)
-axs[2].text(0.02, 0.14, f'SSIM: {ssim:.4f}', color=fc, fontsize=fs, transform=axs[2].transAxes)
-axs[2].axis('off')
-
-plt.tight_layout()
+#axs[1].imshow(img_sparse_limited, cmap='gray')
+#axs[1].set_title('Sparse Image Pre-Reconstruction')
+#axs[1].axis('off')
+#
+## FISTA Reconstructed Image
+#axs[2].imshow(img_fista, cmap='gray')
+#axs[2].set_title('Reconstructed Image using FISTA')
+#axs[2].text(0.02, 0.02, f'MSE: {mse_fista:.4f}', color=fc, fontsize=fs, transform=axs[2].transAxes)
+#axs[2].text(0.02, 0.08, f'PSNR: {psnr_fista:.2f} dB', color=fc, fontsize=fs, transform=axs[2].transAxes)
+#axs[2].text(0.02, 0.14, f'SSIM: {ssim:.4f}', color=fc, fontsize=fs, transform=axs[2].transAxes)
+#axs[2].axis('off')
+#
+#plt.tight_layout()
 #plt.show()
